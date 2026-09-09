@@ -14,7 +14,7 @@ Four repos make up this project:
 - [`sep38-conformance`](https://github.com/RFQLint/sep38-conformance) — the core checking library + CLI. This backend depends on it directly (as a package, not a copy).
 - [`sep38-attestation-registry`](https://github.com/RFQLint/sep38-attestation-registry) — the Soroban contract this backend writes results to.
 - **This repo** — the API a frontend (or anyone) can call to trigger a check and browse results.
-- `sep38-conformance-frontend` — dashboard over this API.
+- [`sep38-conformance-frontend`](https://github.com/RFQLint/sep38-conformance-frontend) — dashboard over this API.
 
 ```mermaid
 flowchart TB
