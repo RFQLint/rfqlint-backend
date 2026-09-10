@@ -6,7 +6,7 @@ and publishes results to the on-chain
 Structurally the same service as
 [`sep24-conformance-backend`](https://github.com/SEP-24-conform/sep24-conformance-backend)
 and
-[`sep31-conformance-backend`](https://github.com/sep31-conformance/sep31-conformance-backend),
+[`corridorlint-backend`](https://github.com/sep31-conformance/corridorlint-backend),
 retargeted at SEP-38's discovery surface.
 
 Four repos make up this project:
