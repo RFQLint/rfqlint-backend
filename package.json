@@ -1,5 +1,5 @@
 {
-  "name": "sep38-conformance-backend",
+  "name": "rfqlint-backend",
   "version": "0.1.0",
   "description": "API service that runs SEP-38 quote server conformance checks and publishes attestations on-chain",
   "type": "module",
@@ -17,7 +17,7 @@
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "express": "^4.21.0",
-    "sep38-conformance": "github:RFQLint/sep38-conformance"
+    "rfqlint": "github:RFQLint/rfqlint"
   },
   "devDependencies": {
     "@types/cors": "^2.8.17",

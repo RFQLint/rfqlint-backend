@@ -1,8 +1,8 @@
-# sep38-conformance-backend
+# rfqlint-backend
 
 The API service behind the SEP-38 conformance checker: runs the checks
 and publishes results to the on-chain
-[`sep38-attestation-registry`](https://github.com/RFQLint/sep38-attestation-registry).
+[`rfqlint-registry`](https://github.com/RFQLint/rfqlint-registry).
 Structurally the same service as
 [`sep24-conformance-backend`](https://github.com/SEP-24-conform/sep24-conformance-backend)
 and
@@ -11,24 +11,24 @@ retargeted at SEP-38's discovery surface.
 
 Four repos make up this project:
 
-- [`sep38-conformance`](https://github.com/RFQLint/sep38-conformance) — the core checking library + CLI. This backend depends on it directly (as a package, not a copy).
-- [`sep38-attestation-registry`](https://github.com/RFQLint/sep38-attestation-registry) — the Soroban contract this backend writes results to.
+- [`rfqlint`](https://github.com/RFQLint/rfqlint) — the core checking library + CLI. This backend depends on it directly (as a package, not a copy).
+- [`rfqlint-registry`](https://github.com/RFQLint/rfqlint-registry) — the Soroban contract this backend writes results to.
 - **This repo** — the API a frontend (or anyone) can call to trigger a check and browse results.
-- [`sep38-conformance-frontend`](https://github.com/RFQLint/sep38-conformance-frontend) — dashboard over this API.
+- [`rfqlint-frontend`](https://github.com/RFQLint/rfqlint-frontend) — dashboard over this API.
 
 ```mermaid
 flowchart TB
     subgraph Client
-        FE[sep38-conformance-frontend]
+        FE[rfqlint-frontend]
         CLI[Any HTTP client / curl]
     end
     subgraph This repo
         API[Express API]
         Store[(Local JSON store)]
     end
-    Checker[sep38-conformance<br/>npm package, installed as a dependency]
+    Checker[rfqlint<br/>npm package, installed as a dependency]
     Anchor[Anchor under test<br/>stellar.toml + /info + /prices + /price]
-    Contract[sep38-attestation-registry<br/>Soroban contract]
+    Contract[rfqlint-registry<br/>Soroban contract]
 
     FE -->|POST /api/checks, GET /api/registry| API
     CLI --> API
@@ -61,7 +61,7 @@ flowchart TB
 
 ```
 POST /api/checks {"domain": "testanchor.stellar.org"}
-  → runs the full sep38-conformance suite against that domain
+  → runs the full rfqlint suite against that domain
   → hashes the report (sha256)
   → if every check passed, signs and submits an `attest` call to the
     registry contract with that hash
@@ -92,7 +92,7 @@ and a genuine `passed: false`, not a hypothetical failure case:
 
 SDF's own reference anchor's `/sep38/price` endpoint is genuinely down
 right now (see
-[`sep38-conformance`'s README](https://github.com/RFQLint/sep38-conformance#a-real-bug-this-tool-found-in-sdfs-own-reference-anchor)) —
+[`rfqlint`'s README](https://github.com/RFQLint/rfqlint#a-real-bug-this-tool-found-in-sdfs-own-reference-anchor)) —
 this backend correctly declines to publish an attestation for it, exactly
 as designed.
 
@@ -117,7 +117,7 @@ sequenceDiagram
     participant Client
     participant API as Express app (app.ts)
     participant Checker as runAndRecordCheck (checker.ts)
-    participant Lib as sep38-conformance
+    participant Lib as rfqlint
     participant Anchor
     participant Chain as contract.ts -> Soroban RPC
     participant Store as store.ts (JSON file)
@@ -229,7 +229,7 @@ attestation isn't a claim anyone benefits from having on-chain
 permanently, and would mean paying a transaction fee for checks that
 fail for reasons as mundane as a typo'd domain.
 
-**Why does `sep38-conformance` install as a git dependency instead of
+**Why does `rfqlint` install as a git dependency instead of
 being published to npm?** Same reasoning as both siblings: one source of
 truth, no risk of a vendored copy drifting from upstream.
 

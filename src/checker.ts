@@ -1,5 +1,5 @@
 import { createHash } from "node:crypto";
-import { runConformanceSuite } from "sep38-conformance";
+import { runConformanceSuite } from "rfqlint";
 import { submitAttestation } from "./contract.js";
 import { saveEntry, type RegistryEntry } from "./store.js";
 

@@ -1,6 +1,6 @@
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { dirname } from "node:path";
-import type { ConformanceReport } from "sep38-conformance";
+import type { ConformanceReport } from "rfqlint";
 
 export interface RegistryEntry {
   domain: string;
